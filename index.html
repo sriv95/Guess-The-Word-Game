@@ -140,54 +140,62 @@
                 yougotit.innerHTML = "คุณยอมแพ้ภายในการเดา <strong>" + guessCount + "</strong> คำ";
             }
         }
-    async function checkGuess() {
-        var varguess = document.getElementById("guess");
-        var vartext = varguess.value;
-        if (vartext.trim() === '') {
-            alert('กรุณาใส่คำก่อนตรวจคำตอบ!');
-            return;
-        }
+        function checkGuess() {
+  var varguess = document.getElementById("guess");
+  var vartext = varguess.value.trim();
 
-        // Read the lines from "Games/001.txt"
-        const response = await fetch('Games/001.txt');
-        const text = await response.text();
-        const lines = text.split('\n').map(line => line.trim());
+  if (vartext === "") {
+    alert("กรุณาใส่คำก่อนตรวจคำตอบ!");
+    return;
+  }
 
-        let similarity = 0;
-        let foundWord = false;
+  // Read the text file using fetch
+  fetch("Games/001.txt")
+    .then((response) => response.text())
+    .then((data) => {
+      const lines = data.split("\n");
+      const totalLines = lines.length;
 
-        // Check if the input word matches any line in the file
-        for (const line of lines) {
-            if (vartext.toLowerCase() === line.toLowerCase()) {
-                foundWord = true;
-                similarity = (1000 - lines.length) / 10;
-                break;
-            }
-        }
+      // Find the index of the secret word in the lines
+      const secretWordIndex = lines.findIndex((line) => line.trim() === vartext);
 
-        // If the word does not match any line, generate a random similarity
-        if (!foundWord) {
-            similarity = (Math.random() * 10).toFixed(1);
-        }
+      if (secretWordIndex !== -1) {
+        // If the word matches a line, calculate the similarity based on the position
+        const similarity = ((totalLines - secretWordIndex) / 10).toFixed(1);
 
-        // Display the similarity in the table
         var table = document.getElementById("wordguessedlist");
         var row = table.insertRow(1);
         var cell1 = row.insertCell(0);
         var cell2 = row.insertCell(1);
-        if (similarity < 50) {
-            cell1.className = "lcoral";
-        } else if (similarity >= 50 && similarity < 75) {
-            cell1.className = "lsalmon";
+
+        if (similarity >= 50) {
+          cell1.className = "lgreen";
+        } else if (similarity > 0) {
+          cell1.className = "lsalmon";
         } else {
-            cell1.className = "lgreen";
+          cell1.className = "lcoral";
         }
+
         cell1.innerHTML = "" + vartext + "";
         cell2.innerHTML = "" + similarity + "%";
 
-        // Reset the input field
-        document.getElementById('guess').value = '';
-    }
+        varguess.value = "";
+      } else {
+        // If the word doesn't match any line, set similarity to 0.0
+        var table = document.getElementById("wordguessedlist");
+        var row = table.insertRow(1);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        cell1.className = "lcoral";
+        cell1.innerHTML = "" + vartext + "";
+        cell2.innerHTML = "0.0%";
+        varguess.value = "";
+      }
+      document.getElementById('guess').value = '';
+    });
+}
+
+        
     document.getElementById('guess').addEventListener('keydown', function(event) {
             if (event.keyCode === 13) {
             event.preventDefault();
