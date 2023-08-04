@@ -164,7 +164,7 @@
             fetch("Games/001.txt")
             .then((response) => response.text())
             .then((data) => {
-            const lines = data.split("\n");
+            var lines = data.split("\n");
             totalLines = lines.length;
             if (lines.length > 0) {
                 secretWord = lines[0].trim();
@@ -173,7 +173,7 @@
             .catch((error) => {
             console.error("Error reading file:", error);
             });
-            
+
             if (vartext === secretWord) {
                 gameend++;
                 showModal();
