@@ -6,26 +6,27 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kodchasan&family=Prompt:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 </head>
 <body>
-    <div style="max-width: 50%;">
+    <div style="max-width: 50%; transform: scale();">
         <div class="navbar">
             <div class="dropdown">
                 <button style="background-color: transparent;font-size: 48px;color: #ffffff;border: transparent;position: fixed;margin-left: 50%;">&#x22EE</button>
-              <div class="dropdown-content">
-                <input style="top: 5%; font-size: 18px; width: 170px; height: 60px; position: fixed;text-align: left;" type="button" value="❔ How to play" onclick="showhowtoplayModal()"></input>
-                <input style="top: 11.5%; font-size: 18px; width: 170px; height: 60px; position: fixed;text-align: left;" type="button" value="💡 Hint" onclick="showhintModal()"></input>
-                <input style="top: 18%; font-size: 18px; width: 170px; height: 60px; position: fixed;text-align: left;" type="button" value="🏳️ Give up" onclick="giveUp()"></input>
-                <input style="top: 24.5%; font-size: 18px; width: 170px; height: 60px; position: fixed;text-align: left;" type="button" value="📜 Credits" onclick="showcreditsModal()"></input>
-              </div>
+                <div class="dropdown-content">
+                    <input style="top: 5%; font-size: 18px; width: 170px; height: 60px; position: fixed;text-align: left;" type="button" value="❔วิธีเล่น" onclick="showhowtoplayModal()"></input>
+                    <input style="top: 10.5%; font-size: 18px; width: 170px; height: 60px; position: fixed;text-align: left;" type="button" value="💡 คำใบ้" onclick="showhintModal()"></input>
+                    <input style="top: 16%; font-size: 18px; width: 170px; height: 60px; position: fixed;text-align: left;" type="button" value="🏳️ ยอมแพ้" onclick="giveUp()"></input>
+                    <input style="top: 21.5%; font-size: 18px; width: 170px; height: 60px; position: fixed;text-align: left;" type="button" value="📜 ผู้จัดทำ" onclick="showcreditsModal()"></input>
+                </div>
             </div> 
           </div>          
         <div style="width: 10%;" id="options" class="options">
         </div>
-        <h1>GUESS THE WORD</h1>
-        <label>GAME: <strong>#0</strong></p>
+        <h1>เกมเดาคำศัพท์</h1>
+        <label>เกมที่: <strong>#0</strong></p>
         <div id="stopwatch"></div>
-        <p id="guesses">GUESSES: <strong>0</strong></p>
+        <p id="guesses">จำนวนคำ: <strong>0</strong></p>
         <form>
             <input style="width: 86%;" type="text" id="guess" placeholder="type a word">
             <input style ="height: auto;" type="button" id="submitButton" value="Check" onclick="checkGuess()">
@@ -34,7 +35,7 @@
     </div>
     <table id="wordguessedlist">
         <tr>
-            <th style="width: 75%;">Guessed Word</th>
+            <th style="width: 75%;">Guessed Word (คำที่เดาไปแล้ว)</th>
             <th>Similarity (%)</th>
         </tr>
     </table>
@@ -49,18 +50,18 @@
     <div id="howtoplayModal" class="modal">
         <div class="modal-content">
             <button class="close-button" onclick="hidehowtoplayModal()">&times;</button>
-            <p style="text-align: center; font-size: 28px;"><strong>❔How To Play</strong></p>
+            <p style="text-align: center; font-size: 28px;"><strong>❔วิธีเล่น</strong></p>
             <p style="text-align: center; font-size: 20px;">
-                Find the secret word. You have unlimited guesses.
+                พิมพ์คำศัพท์ลงในช่องเดาคำศัพท์ไปเรื่อยๆจนกว่าจะถูก
                 <br></br>
-                The words were sorted by how similar they were to the secret word.
+                คะแนนจะเรียงตามความใกล้เคียง
             </p>
         </div>
     </div>
     <div id="hintModal" class="modal">
         <div class="modal-content">
             <button class="close-button" onclick="hidehintModal()">&times;</button>
-            <p style="text-align: center; font-size: 28px;"><strong>💡 Hint</strong></p>
+            <p style="text-align: center; font-size: 28px;"><strong>💡 คำใบ้</strong></p>
             <p style="text-align: center; font-size: 20px;">
                 fruit
             </p>
@@ -69,13 +70,13 @@
     <div id="credits" class="modal">
         <div class="modal-content">
             <button class="close-button" onclick="hidecreditsModal()">&times;</button>
-            <p style="text-align: center; font-size: 28px;"><strong>📜 Credits</strong></p>
+            <p style="text-align: center; font-size: 28px;"><strong>📜 ผู้จัดทำ</strong></p>
             <p style="text-align: center; font-size: 20px;">
-                Tinnaphat Srivichai No.36 M.5/13
+                นาย ชินภัทร เมืองใจ เลขที่ 27 ม.6/13
                 <br></br>
-                Tinnaphat Srivichai No.36 M.5/13
+                นาย ณัฐภัทร วรรณภิละ เลขที่ 31 ม.6/13
                 <br></br>
-                Tinnaphat Srivichai No.36 M.5/13
+                นาย ทินภัทร ศรีวิชัย เลขที่ 36 ม.6/13
             </p>
         </div>
     </div>
@@ -89,8 +90,8 @@
     const elapsedTime = Date.now() - startTime;
     const minutes = Math.floor(elapsedTime / 60000);
     const seconds = Math.floor((elapsedTime % 60000) / 1000);
-    const stopwatchDisplay = `${minutes}:${seconds}`;
-    document.getElementById('stopwatch').innerHTML = "Time Elapsed: " +stopwatchDisplay+ "";
+    const stopwatchDisplay = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    document.getElementById('stopwatch').innerHTML = "เวลาที่ใช้: " +stopwatchDisplay+ "";
     }, 1000);
     function showcreditsModal () {
         document.getElementById("credits").style.display = "block";
@@ -122,7 +123,7 @@
         }
         else {
             var congrat = document.getElementById("congrat");
-            congrat.innerHTML = "🎈<strong>Better luck in the next time!</strong>🎈";
+            congrat.innerHTML = "🎈<strong>ขอให้โชคดีในครั้งหน้า!</strong>🎈";
         }
     }
     function hideModal() {
@@ -130,13 +131,13 @@
         modal.style.display = "none";
         }
     function giveUp() {
-            if (confirm("Are you sure you want to give up?")) {
+            if (confirm("คุณแน่ใจหรือไม่ ที่จะยอมแพ้?")) {
                 gameend = 0;
                 showModal()
                 var thewordwas = document.getElementById("thewordwas");
-                thewordwas.innerHTML = "The word was <strong>" + secretWord + "</strong>";
+                thewordwas.innerHTML = "เฉลยคือ <strong>" + secretWord + "</strong>";
                 var yougotit = document.getElementById("yougotit");
-                yougotit.innerHTML = "You gave up in <strong>" + guessCount + "</strong> guesses";
+                yougotit.innerHTML = "คุณยอมแพ้ภายในการเดา <strong>" + guessCount + "</strong> คำ";
             }
         }
     function levenshteinDistance(a, b) {
@@ -170,63 +171,149 @@
         return similarity;
         }
     function checkGuess() {
-            var varguess = document.getElementById("guess");
-            var vartext = varguess.value;
-            if (vartext.trim() === '') {
-                alert('Please enter a word!');
-                return;
+  var varguess = document.getElementById("guess");
+  var vartext = varguess.value.trim();
+
+  if (vartext === '') {
+    alert('กรุณาใส่คำก่อนตรวจคำตอบ!');
+    return;
+  }
+
+  // Load the file asynchronously using fetch API
+  fetch("Games/001.txt")
+    .then(response => response.text())
+    .then(data => {
+      var lines = data.split("\n");
+
+      for (var i = 0; i < lines.length; i++) {
+        var line = lines[i].trim();
+        
+        if (line === vartext) {
+          guessCount++;
+          var similarity = (1000 - i) / 10;
+
+          // Rest of the code remains the same
+          var table = document.getElementById("wordguessedlist");
+          for (var j = 0; j < table.rows.length; j++) {
+            var firstCell = table.rows[j].cells[0];
+            if (firstCell.innerHTML === vartext) {
+              alert("คำนี้ถูกใช้ไปแล้ว!");
+              return;
             }
-            var table = document.getElementById("wordguessedlist");
-            for (var i = 0; i < table.rows.length; i++) {
-                var firstCell = table.rows[i].cells[0];
-                if (firstCell.innerHTML === vartext) {
-                alert("The word already guessed!");
-                return;
-                }
+          }
+          
+          // Remaining code as before
+          var guesses = document.getElementById("guesses");
+          guesses.innerHTML = "จำนวนคำ: <strong>" + guessCount + "</strong>";
+          
+          if (vartext === secretWord) {
+            gameend++;
+            showModal();
+            var thewordwas = document.getElementById("thewordwas");
+            thewordwas.innerHTML = "เฉลยคือ <strong>" + vartext + "</strong>";
+            var yougotit = document.getElementById("yougotit");
+            yougotit.innerHTML = "คุณเดาถูกภายใน <strong>" + guessCount + "</strong> คำ";
+          }
+          
+          var row = table.insertRow(1);
+          var cell1 = row.insertCell(0);
+          var cell2 = row.insertCell(1);
+          if (similarity < 50) {
+            cell1.className = "lcoral";
+          } else if (similarity >= 50 && similarity < 75) {
+            cell1.className = "lsalmon";
+          } else {
+            cell1.className = "lgreen";
+          }  
+          cell1.innerHTML = ""+ vartext +"";
+          cell2.innerHTML = ""+ similarity.toFixed(1) +"%";
+          
+          var rows = table.rows;
+          var numRows = rows.length;
+          for (var k = 2; k < numRows; k++) {
+            var maxIndex = k;
+            for (var l = k + 1; l < numRows; l++) {
+              var maxCellValue = parseFloat(rows[maxIndex].cells[1].innerHTML);
+              var cellValue = parseFloat(rows[l].cells[1].innerHTML);
+              if (cellValue > maxCellValue) {
+                maxIndex = l;
+              }
             }
-            guessCount++;
-            var similarity = calculateSimilarity(vartext, secretWord);
-            var guesses = document.getElementById("guesses");
-            guesses.innerHTML = "GUESSES: <strong>" + guessCount + "</strong>";
-            if (vartext === secretWord) {
-                gameend++;
-                showModal();
-                var thewordwas = document.getElementById("thewordwas");
-                thewordwas.innerHTML = "The word was <strong>" + vartext + "</strong>";
-                var yougotit = document.getElementById("yougotit");
-                yougotit.innerHTML = "You got it in <strong>" + guessCount + "</strong> guesses";
+            if (maxIndex !== k) {
+              var tempRow = rows[k].innerHTML;
+              rows[k].innerHTML = rows[maxIndex].innerHTML;
+              rows[maxIndex].innerHTML = tempRow;
             }
-            var row = table.insertRow(1);
-            var cell1 = row.insertCell(0);
-            var cell2 = row.insertCell(1);
-            if (similarity < 50) {
-                cell1.className = "lcoral";
-            } else if (similarity >= 50 && similarity < 75) {
-                cell1.className = "lsalmon";
-            } else {
-                cell1.className = "lgreen";
-            }  
-            cell1.innerHTML = ""+ vartext +"";
-            cell2.innerHTML = ""+ similarity +"%";
-            var rows = table.rows;
-            var numRows = rows.length;
-            for (var i = 2; i < numRows; i++) {
-                var maxIndex = i;
-                for (var j = i + 1; j < numRows; j++) {
-                    var maxCellValue = parseInt(rows[maxIndex].cells[1].innerHTML);
-                    var cellValue = parseInt(rows[j].cells[1].innerHTML);
-                    if (cellValue > maxCellValue) {
-                        maxIndex = j;
-                    }
-                }
-                if (maxIndex !== i) {
-                    var tempRow = rows[i].innerHTML;
-                    rows[i].innerHTML = rows[maxIndex].innerHTML;
-                    rows[maxIndex].innerHTML = tempRow;
-                }
-            }
-            document.getElementById('guess').value = '';
+          }
+          
+          document.getElementById('guess').value = '';
+          return;
         }
+      }
+
+      // If the word does not match any line in the file, generate random similarity
+      var similarity = (Math.random() * 100).toFixed(1);
+      // Rest of the code remains the same
+      var table = document.getElementById("wordguessedlist");
+      for (var j = 0; j < table.rows.length; j++) {
+        var firstCell = table.rows[j].cells[0];
+        if (firstCell.innerHTML === vartext) {
+          alert("คำนี้ถูกใช้ไปแล้ว!");
+          return;
+        }
+      }
+      
+      // Remaining code as before
+      var guesses = document.getElementById("guesses");
+      guesses.innerHTML = "จำนวนคำ: <strong>" + guessCount + "</strong>";
+      
+      if (vartext === secretWord) {
+        gameend++;
+        showModal();
+        var thewordwas = document.getElementById("thewordwas");
+        thewordwas.innerHTML = "เฉลยคือ <strong>" + vartext + "</strong>";
+        var yougotit = document.getElementById("yougotit");
+        yougotit.innerHTML = "คุณเดาถูกภายใน <strong>" + guessCount + "</strong> คำ";
+      }
+      
+      var row = table.insertRow(1);
+      var cell1 = row.insertCell(0);
+      var cell2 = row.insertCell(1);
+      if (similarity < 50) {
+        cell1.className = "lcoral";
+      } else if (similarity >= 50 && similarity < 75) {
+        cell1.className = "lsalmon";
+      } else {
+        cell1.className = "lgreen";
+      }  
+      cell1.innerHTML = ""+ vartext +"";
+      cell2.innerHTML = ""+ similarity +"%";
+      
+      var rows = table.rows;
+      var numRows = rows.length;
+      for (var k = 2; k < numRows; k++) {
+        var maxIndex = k;
+        for (var l = k + 1; l < numRows; l++) {
+          var maxCellValue = parseFloat(rows[maxIndex].cells[1].innerHTML);
+          var cellValue = parseFloat(rows[l].cells[1].innerHTML);
+          if (cellValue > maxCellValue) {
+            maxIndex = l;
+          }
+        }
+        if (maxIndex !== k) {
+          var tempRow = rows[k].innerHTML;
+          rows[k].innerHTML = rows[maxIndex].innerHTML;
+          rows[maxIndex].innerHTML = tempRow;
+        }
+      }
+      
+      document.getElementById('guess').value = '';
+    })
+    .catch(error => {
+      console.error('Error fetching file:', error);
+    });
+}
+
     document.getElementById('guess').addEventListener('keydown', function(event) {
             if (event.keyCode === 13) {
             event.preventDefault();
