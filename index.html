@@ -164,11 +164,12 @@
             fetch("Games/001.txt")
             .then((response) => response.text())
             .then((data) => {
-            var lines = data.split("\n");
+            const lines = data.split("\n");
             totalLines = lines.length;
             if (lines.length > 0) {
                 secretWord = lines[0].trim();
             }
+            similarity = ((totalLines - lines.findIndex((line) => line.trim() === vartext))/10).toFixed(1);
             })
             .catch((error) => {
             console.error("Error reading file:", error);
@@ -182,7 +183,6 @@
                 var yougotit = document.getElementById("yougotit");
                 yougotit.innerHTML = "คุณเดาถูกภายใน <strong>" + guessCount + "</strong> คำ";
             }
-            similarity = ((totalLines - lines.findIndex((line) => line.trim() === vartext))/10).toFixed(1);
             var row = table.insertRow(1);
             var cell1 = row.insertCell(0);
             var cell2 = row.insertCell(1);
