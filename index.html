@@ -24,7 +24,7 @@
         <div style="width: 10%;" id="options" class="options">
         </div>
         <h1>เกมเดาคำศัพท์</h1>
-        <label>เกมที่: <strong>#0</strong></p>
+        <label>เกมที่: <strong>#1</strong></p>
         <div id="stopwatch"></div>
         <p id="guesses">จำนวนคำ: <strong>0</strong></p>
         <form>
@@ -82,7 +82,8 @@
     </div>
 </body>
 <script>
-    var secretWord = "banana";
+    import translate from '@vitalets/google-translate-api';
+    var secretWord = "";
     function readSecretWordFromFile() {
         fetch("Games/001.txt")
             .then((response) => response.text())
@@ -155,9 +156,10 @@
                 yougotit.innerHTML = "คุณยอมแพ้ภายในการเดา <strong>" + guessCount + "</strong> คำ";
             }
         }
-    function checkGuess() {
+    async function checkGuess() {
         var varguess = document.getElementById("guess");
         var vartext = varguess.value;
+        const vartext = varguess.value.trim();
         if (vartext.trim() === '') {
             alert('กรุณาใส่คำก่อนตรวจคำตอบ!');
             return;
@@ -170,6 +172,16 @@
             return;
             }
         }
+        let thaiMeanings = [];
+        try {
+            const translations = await translate(vartext, {from: 'en', to: 'th' });
+            thaiMeanings.push(translations.text);
+            thaiMeanings.push(translations.text);
+            thaiMeanings.push(translations.text);
+        } catch (error) {
+            console.error('Error fetching Thai meanings:', error);
+        }
+        const finaltext = `${vartext} (${thaiMeanings[0]}, ${thaiMeanings[1]}, ${thaiMeanings[2]})`;
         guessCount++;
         var similarity = 0.0
         var guesses = document.getElementById("guesses");
@@ -193,19 +205,20 @@
             if (secretWordIndex !== -1) {
                 similarity = ((totalLines - secretWordIndex) / 10).toFixed(1);
             }
-                var row = table.insertRow(1);
-                var cell1 = row.insertCell(0);
-                var cell2 = row.insertCell(1);
-                if (similarity < 50) {
-                    cell1.className = "lcoral";
-                } else if (similarity >= 50 && similarity < 75) {
-                    cell1.className = "lsalmon";
-                } else {
-                    cell1.className = "lgreen";
-                }  
-                cell1.innerHTML = ""+ vartext +"";
-                cell2.innerHTML = ""+ similarity +"%";
-                var rows = table.rows;
+            var row = table.insertRow(1);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            if (similarity < 50) {
+                cell1.className = "lcoral";
+            } else if (similarity >= 50 && similarity < 75) {
+                cell1.className = "lsalmon";
+            } else {
+                cell1.className = "lgreen";
+            }
+            
+            cell1.innerHTML = finaltext;
+            cell2.innerHTML = ""+ similarity +"%";
+            var rows = table.rows;
             var numRows = rows.length;
             for (var i = 2; i < numRows; i++) {
                 var maxIndex = i;
