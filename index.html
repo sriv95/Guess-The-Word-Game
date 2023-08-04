@@ -205,24 +205,24 @@
                 }  
                 cell1.innerHTML = ""+ vartext +"";
                 cell2.innerHTML = ""+ similarity +"%";
-            });
-        var rows = table.rows;
-        var numRows = rows.length;
-        for (var i = 2; i < numRows; i++) {
-            var maxIndex = i;
-            for (var j = i + 1; j < numRows; j++) {
-                var maxCellValue = parseInt(rows[maxIndex].cells[1].innerHTML);
-                var cellValue = parseInt(rows[j].cells[1].innerHTML);
-                if (cellValue > maxCellValue) {
-                    maxIndex = j;
+                var rows = table.rows;
+            var numRows = rows.length;
+            for (var i = 2; i < numRows; i++) {
+                var maxIndex = i;
+                for (var j = i + 1; j < numRows; j++) {
+                    var maxCellValue = parseInt(rows[maxIndex].cells[1].innerHTML);
+                    var cellValue = parseInt(rows[j].cells[1].innerHTML);
+                    if (cellValue > maxCellValue) {
+                        maxIndex = j;
+                    }
+                }
+                if (maxIndex !== i) {
+                    var tempRow = rows[i].innerHTML;
+                    rows[i].innerHTML = rows[maxIndex].innerHTML;
+                    rows[maxIndex].innerHTML = tempRow;
                 }
             }
-            if (maxIndex !== i) {
-                var tempRow = rows[i].innerHTML;
-                rows[i].innerHTML = rows[maxIndex].innerHTML;
-                rows[maxIndex].innerHTML = tempRow;
-            }
-        }
+            });
         document.getElementById('guess').value = '';
         }
     document.getElementById('guess').addEventListener('keydown', function(event) {
