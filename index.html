@@ -84,21 +84,6 @@
 <script>
     var secretWord = "banana";
     var totalLines = 1001
-    function readSecretWordFromFile() {
-        fetch("Games/001.txt")
-            .then((response) => response.text())
-            .then((data) => {
-            const lines = data.split("\n");
-            totalLines = lines.length;
-            if (lines.length > 0) {
-                secretWord = lines[0].trim();
-            }
-            })
-            .catch((error) => {
-            console.error("Error reading file:", error);
-            });
-        }
-    readSecretWordFromFile();
     var guessCount = 0;
     var gameend = 0;
     const startTime = Date.now();
@@ -175,6 +160,20 @@
             var similarity = 0.0
             var guesses = document.getElementById("guesses");
             guesses.innerHTML = "จำนวนคำ: <strong>" + guessCount + "</strong>";
+
+            fetch("Games/001.txt")
+            .then((response) => response.text())
+            .then((data) => {
+            const lines = data.split("\n");
+            totalLines = lines.length;
+            if (lines.length > 0) {
+                secretWord = lines[0].trim();
+            }
+            })
+            .catch((error) => {
+            console.error("Error reading file:", error);
+            });
+            
             if (vartext === secretWord) {
                 gameend++;
                 showModal();
