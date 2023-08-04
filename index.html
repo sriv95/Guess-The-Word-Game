@@ -83,6 +83,22 @@
 </body>
 <script>
     var secretWord = "banana";
+    var totalLines = 1001
+    function readSecretWordFromFile() {
+        fetch("Games/001.txt")
+            .then((response) => response.text())
+            .then((data) => {
+            const lines = data.split("\n");
+            totalLines = lines.length;
+            if (lines.length > 0) {
+                secretWord = lines[0].trim();
+            }
+            })
+            .catch((error) => {
+            console.error("Error reading file:", error);
+            });
+        }
+    readSecretWordFromFile();
     var guessCount = 0;
     var gameend = 0;
     const startTime = Date.now();
@@ -131,83 +147,74 @@
         modal.style.display = "none";
         }
     function giveUp() {
-        if (confirm("คุณแน่ใจหรือไม่ ที่จะยอมแพ้?")) {
-            gameend = 0;
-            showModal()
-            var thewordwas = document.getElementById("thewordwas");
-            thewordwas.innerHTML = "เฉลยคือ <strong>" + secretWord + "</strong>";
-            var yougotit = document.getElementById("yougotit");
-            yougotit.innerHTML = "คุณยอมแพ้ภายในการเดา <strong>" + guessCount + "</strong> คำ";
-        }
+            if (confirm("คุณแน่ใจหรือไม่ ที่จะยอมแพ้?")) {
+                gameend = 0;
+                showModal()
+                var thewordwas = document.getElementById("thewordwas");
+                thewordwas.innerHTML = "เฉลยคือ <strong>" + secretWord + "</strong>";
+                var yougotit = document.getElementById("yougotit");
+                yougotit.innerHTML = "คุณยอมแพ้ภายในการเดา <strong>" + guessCount + "</strong> คำ";
             }
-    function checkGuess() {
-        var varguess = document.getElementById("guess");
-        var vartext = varguess.value.trim();
-
-        if (vartext === "") {
-            alert("กรุณาใส่คำก่อนตรวจคำตอบ!");
-            return;
         }
-
-        fetch("Games/001.txt")
-            .then((response) => response.text())
-            .then((data) => {
-            const lines = data.split("\n");
-            const totalLines = lines.length;
-
-            const secretWordIndex = lines.findIndex((line) => line.trim() === vartext);
-
-            if (secretWordIndex !== -1) {
-                const similarity = ((totalLines - secretWordIndex) / 10).toFixed(1);
-
-                var table = document.getElementById("wordguessedlist");
-                var row = table.insertRow(1);
-                var cell1 = row.insertCell(0);
-                var cell2 = row.insertCell(1);
-
-                if (similarity >= 50) {
-                cell1.className = "lgreen";
-                } else if (similarity > 0) {
-                cell1.className = "lsalmon";
-                } else {
-                cell1.className = "lcoral";
+    function checkGuess() {
+            var varguess = document.getElementById("guess");
+            var vartext = varguess.value;
+            if (vartext.trim() === '') {
+                alert('กรุณาใส่คำก่อนตรวจคำตอบ!');
+                return;
+            }
+            var table = document.getElementById("wordguessedlist");
+            for (var i = 0; i < table.rows.length; i++) {
+                var firstCell = table.rows[i].cells[0];
+                if (firstCell.innerHTML === vartext) {
+                alert("คำนี้ถูกใช้ไปแล้ว!");
+                return;
                 }
-
-                cell1.innerHTML = "" + vartext + "";
-                cell2.innerHTML = "" + similarity + "%";
-
-                varguess.value = "";
-
-                var tableRows = table.getElementsByTagName("tr");
-                for (var i = 1; i < tableRows.length; i++) {
-                var wordCell = tableRows[i].getElementsByTagName("td")[0];
-                if (wordCell.innerHTML === vartext) {
-                    alert("คำนี้ถูกใช้ไปแล้ว!");
-                    return;
-                }
-                }
-
-                if (vartext === lines[0].trim()) {
-                clearInterval(stopwatch);
+            }
+            guessCount++;
+            var similarity = 0.0
+            var guesses = document.getElementById("guesses");
+            guesses.innerHTML = "จำนวนคำ: <strong>" + guessCount + "</strong>";
+            if (vartext === secretWord) {
+                gameend++;
                 showModal();
                 var thewordwas = document.getElementById("thewordwas");
                 thewordwas.innerHTML = "เฉลยคือ <strong>" + vartext + "</strong>";
                 var yougotit = document.getElementById("yougotit");
                 yougotit.innerHTML = "คุณเดาถูกภายใน <strong>" + guessCount + "</strong> คำ";
-                }
-            } else {
-                var table = document.getElementById("wordguessedlist");
-                var row = table.insertRow(1);
-                var cell1 = row.insertCell(0);
-                var cell2 = row.insertCell(1);
+            }
+            similarity = ((totalLines - lines.findIndex((line) => line.trim() === vartext))/10).toFixed(1);
+            var row = table.insertRow(1);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            if (similarity < 50) {
                 cell1.className = "lcoral";
-                cell1.innerHTML = "" + vartext + "";
-                cell2.innerHTML = "0.0%";
-                varguess.value = "";
+            } else if (similarity >= 50 && similarity < 75) {
+                cell1.className = "lsalmon";
+            } else {
+                cell1.className = "lgreen";
+            }  
+            cell1.innerHTML = ""+ vartext +"";
+            cell2.innerHTML = ""+ similarity +"%";
+            var rows = table.rows;
+            var numRows = rows.length;
+            for (var i = 2; i < numRows; i++) {
+                var maxIndex = i;
+                for (var j = i + 1; j < numRows; j++) {
+                    var maxCellValue = parseInt(rows[maxIndex].cells[1].innerHTML);
+                    var cellValue = parseInt(rows[j].cells[1].innerHTML);
+                    if (cellValue > maxCellValue) {
+                        maxIndex = j;
+                    }
+                }
+                if (maxIndex !== i) {
+                    var tempRow = rows[i].innerHTML;
+                    rows[i].innerHTML = rows[maxIndex].innerHTML;
+                    rows[maxIndex].innerHTML = tempRow;
+                }
             }
             document.getElementById('guess').value = '';
-            });
-        }    
+        }
     document.getElementById('guess').addEventListener('keydown', function(event) {
             if (event.keyCode === 13) {
             event.preventDefault();
