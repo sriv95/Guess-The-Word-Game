@@ -131,71 +131,83 @@
         modal.style.display = "none";
         }
     function giveUp() {
-            if (confirm("คุณแน่ใจหรือไม่ ที่จะยอมแพ้?")) {
-                gameend = 0;
-                showModal()
-                var thewordwas = document.getElementById("thewordwas");
-                thewordwas.innerHTML = "เฉลยคือ <strong>" + secretWord + "</strong>";
-                var yougotit = document.getElementById("yougotit");
-                yougotit.innerHTML = "คุณยอมแพ้ภายในการเดา <strong>" + guessCount + "</strong> คำ";
+        if (confirm("คุณแน่ใจหรือไม่ ที่จะยอมแพ้?")) {
+            gameend = 0;
+            showModal()
+            var thewordwas = document.getElementById("thewordwas");
+            thewordwas.innerHTML = "เฉลยคือ <strong>" + secretWord + "</strong>";
+            var yougotit = document.getElementById("yougotit");
+            yougotit.innerHTML = "คุณยอมแพ้ภายในการเดา <strong>" + guessCount + "</strong> คำ";
+        }
             }
-        }
-        function checkGuess() {
-  var varguess = document.getElementById("guess");
-  var vartext = varguess.value.trim();
+    function checkGuess() {
+        var varguess = document.getElementById("guess");
+        var vartext = varguess.value.trim();
 
-  if (vartext === "") {
-    alert("กรุณาใส่คำก่อนตรวจคำตอบ!");
-    return;
-  }
-
-  // Read the text file using fetch
-  fetch("Games/001.txt")
-    .then((response) => response.text())
-    .then((data) => {
-      const lines = data.split("\n");
-      const totalLines = lines.length;
-
-      // Find the index of the secret word in the lines
-      const secretWordIndex = lines.findIndex((line) => line.trim() === vartext);
-
-      if (secretWordIndex !== -1) {
-        // If the word matches a line, calculate the similarity based on the position
-        const similarity = ((totalLines - secretWordIndex) / 10).toFixed(1);
-
-        var table = document.getElementById("wordguessedlist");
-        var row = table.insertRow(1);
-        var cell1 = row.insertCell(0);
-        var cell2 = row.insertCell(1);
-
-        if (similarity >= 50) {
-          cell1.className = "lgreen";
-        } else if (similarity > 0) {
-          cell1.className = "lsalmon";
-        } else {
-          cell1.className = "lcoral";
+        if (vartext === "") {
+            alert("กรุณาใส่คำก่อนตรวจคำตอบ!");
+            return;
         }
 
-        cell1.innerHTML = "" + vartext + "";
-        cell2.innerHTML = "" + similarity + "%";
+        fetch("Games/001.txt")
+            .then((response) => response.text())
+            .then((data) => {
+            const lines = data.split("\n");
+            const totalLines = lines.length;
 
-        varguess.value = "";
-      } else {
-        // If the word doesn't match any line, set similarity to 0.0
-        var table = document.getElementById("wordguessedlist");
-        var row = table.insertRow(1);
-        var cell1 = row.insertCell(0);
-        var cell2 = row.insertCell(1);
-        cell1.className = "lcoral";
-        cell1.innerHTML = "" + vartext + "";
-        cell2.innerHTML = "0.0%";
-        varguess.value = "";
-      }
-      document.getElementById('guess').value = '';
-    });
-}
+            const secretWordIndex = lines.findIndex((line) => line.trim() === vartext);
 
-        
+            if (secretWordIndex !== -1) {
+                const similarity = ((totalLines - secretWordIndex) / 10).toFixed(1);
+
+                var table = document.getElementById("wordguessedlist");
+                var row = table.insertRow(1);
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+
+                if (similarity >= 50) {
+                cell1.className = "lgreen";
+                } else if (similarity > 0) {
+                cell1.className = "lsalmon";
+                } else {
+                cell1.className = "lcoral";
+                }
+
+                cell1.innerHTML = "" + vartext + "";
+                cell2.innerHTML = "" + similarity + "%";
+
+                varguess.value = "";
+
+                var tableRows = table.getElementsByTagName("tr");
+                for (var i = 1; i < tableRows.length; i++) {
+                var wordCell = tableRows[i].getElementsByTagName("td")[0];
+                if (wordCell.innerHTML === vartext) {
+                    alert("คำนี้ถูกใช้ไปแล้ว!");
+                    return;
+                }
+                }
+
+                if (vartext === lines[0].trim()) {
+                clearInterval(stopwatch);
+                showModal();
+                var thewordwas = document.getElementById("thewordwas");
+                thewordwas.innerHTML = "เฉลยคือ <strong>" + vartext + "</strong>";
+                var yougotit = document.getElementById("yougotit");
+                yougotit.innerHTML = "คุณเดาถูกภายใน <strong>" + guessCount + "</strong> คำ";
+                }
+            } else {
+                var table = document.getElementById("wordguessedlist");
+                var row = table.insertRow(1);
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                cell1.className = "lcoral";
+                cell1.innerHTML = "" + vartext + "";
+                cell2.innerHTML = "0.0%";
+                varguess.value = "";
+            }
+            document.getElementById('guess').value = '';
+            });
+        }    
     document.getElementById('guess').addEventListener('keydown', function(event) {
             if (event.keyCode === 13) {
             event.preventDefault();
