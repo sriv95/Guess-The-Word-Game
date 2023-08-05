@@ -1,5 +1,5 @@
 function checkGuess() {
-    var varguess = document.getElementById("guess");
+    var varguess = document.getElementById("textbox_guess");
     var vartext = varguess.value;
     if (vartext.trim() === '') {
         alert('กรุณาใส่คำก่อนตรวจคำตอบ!');
