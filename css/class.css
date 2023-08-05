@@ -45,7 +45,6 @@ ul li.modal:hover {
     transform: none;
 }
 p {
-    margin-top: -100px;
     color: aliceblue;
     text-align: center;
     transform: 0.5s;

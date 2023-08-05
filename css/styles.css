@@ -153,9 +153,6 @@ th {
     position: relative;
     z-index: 1; 
 }
-table tr:nth-child(odd) td {
-    background-color: #2d2e33;
-}
-table tr:nth-child(even) td {
+table tr td {
     background-color: #3e3f46;
 }
