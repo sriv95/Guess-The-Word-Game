@@ -1,0 +1,161 @@
+*{
+    box-sizing: border-box;
+    font-family: 'Kodchasan', sans-serif;
+    letter-spacing: 0.1em;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+body {
+    display: flex;
+    justify-content: center;
+    background-color: #000000;
+}
+ul {
+    position: relative;
+    transform: skewY(-15deg);
+}
+ul li {
+    position: relative;
+    list-style: none;
+    width: 100px;
+    padding: 0px;
+    background-color: #3e3f46;
+    transition: 0.5s;
+    z-index: calc(1*var(--i));
+}
+ul li:not(.textbox):hover {
+    transform: translateX(-50px);
+    background: #bbbbbb;
+}
+
+ul li.textbox:hover input {
+    color: aliceblue; /* Set the desired color on hover */
+}
+
+ul li::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -40px;
+    width: 40px;
+    height: 100%;
+    background: #3e3f46;
+    filter: brightness(0.7);
+    transform-origin: right;
+    transform: skewY(45deg);
+}
+ul li:hover::before {
+    background: #bbbbbb;
+    filter: brightness(0.7);
+}
+ul li::after {
+    content: '';
+    position: absolute;
+    top: -40px;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background: #3e3f46;
+    filter: brightness(0.9);
+    transform-origin: bottom;
+    transform: skewX(45deg);
+    transition: 0.5s;
+}
+ul li:hover::after {
+    background: #bbbbbb;
+    filter: brightness(0.9);
+}
+ul li input {
+    text-decoration: none;
+    color: aliceblue;
+    transition: 0.5s;
+    background: transparent;
+    border: transparent;
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+}
+ul li:hover input {
+    color: #3e3f46;
+}
+ul li span {
+    position: absolute;
+    top: 0;
+    left: -40px;
+    width: 40px;
+    height: 100%;
+    filter: brightness(0.7);
+    transform-origin: right;
+    transform: skewY(45deg);
+    transition: 0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.75;
+}
+ul li:hover span {
+    opacity: 1;
+}
+ul li.title {
+    pointer-events: none;
+}
+ul li.info {
+    pointer-events: none;
+}
+table {
+    position: relative;
+    transform: skewY(-15deg);
+    background: #3e3f46;
+    padding: 20px;
+    width: 70%;
+    border-collapse: collapse;
+    color: aliceblue;
+    margin-top: 50px;
+    margin-left: 100px;
+}
+th, td {
+    padding: 20px;
+    text-align: center;
+}
+th {
+    background-color: #3e3f46;
+}
+td {
+    background-color: #bbbbbb;
+    border-bottom: 1px solid #3e3f46;
+}
+table::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -40px;
+    width: 40px;
+    height: 100%;
+    background: #3e3f46;
+    filter: brightness(0.7);
+    transform-origin: right;
+    transform: skewY(45deg);
+}
+table::after {
+    content: '';
+    position: absolute;
+    top: -40px;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background: #3e3f46;
+    filter: brightness(0.9);
+    transform-origin: bottom;
+    transform: skewX(45deg);
+}
+th {
+    position: relative;
+    z-index: 1; 
+}
+table tr:nth-child(odd) td {
+    background-color: #2d2e33;
+}
+table tr:nth-child(even) td {
+    background-color: #3e3f46;
+}

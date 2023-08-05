@@ -1,0 +1,52 @@
+.options {
+    margin-left: 1500px;
+    margin-top: 100px;
+}
+.title {
+    margin-left: 600px;
+    margin-top: 100px;
+    width: 350px;
+    height: 100px;
+    animation: floatAnimation 3s ease-in-out infinite;
+}
+.info {
+    width: 300px;
+    height: 75px;
+    animation: floatAnimation 3s ease-in-out infinite;
+}
+.textbox {
+    width: 500px;
+    margin-left: 400px;
+    margin-top: -100px;
+}
+.checkbutton {
+    width: 200px;
+    margin-left: 1000px;
+    margin-top: -75px;
+}
+.viewresultbutton {
+    width: 300px;
+    margin-left: 500px;
+    margin-top: -50px;
+    opacity: 0;
+    z-index: -1;
+}
+.modal {
+    margin-top: -600px;
+    margin-left: -150px;
+    height: 300px;
+    width: 300px;
+    opacity: 0;
+}
+.modal input{
+    margin-top: -100px;
+}
+ul li.modal:hover {
+    transform: none;
+}
+p {
+    margin-top: -100px;
+    color: aliceblue;
+    text-align: center;
+    transform: 0.5s;
+}
