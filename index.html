@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Guess the word</title>
+    <title>เกมเดาคำศัพท์</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kodchasan&family=Prompt:wght@500&display=swap" rel="stylesheet">
@@ -11,24 +11,24 @@
 <body>
     <div style="max-width: 50%; transform: scale();">
         <div class="navbar">
-            <div class="dropdown">
-                <button style="background-color: transparent;font-size: 48px;color: #ffffff;border: transparent;position: fixed;margin-left: 50%;">&#x22EE</button>
-                <div class="dropdown-content">
-                    <input style="top: 5%; font-size: 18px; width: 170px; height: 60px; position: fixed;text-align: left;" type="button" value="❔วิธีเล่น" onclick="showhowtoplayModal()"></input>
-                    <input style="top: 10.5%; font-size: 18px; width: 170px; height: 60px; position: fixed;text-align: left;" type="button" value="💡 คำใบ้" onclick="showhintModal()"></input>
-                    <input style="top: 16%; font-size: 18px; width: 170px; height: 60px; position: fixed;text-align: left;" type="button" value="🏳️ ยอมแพ้" onclick="giveUp()"></input>
-                    <input style="top: 21.5%; font-size: 18px; width: 170px; height: 60px; position: fixed;text-align: left;" type="button" value="📜 ผู้จัดทำ" onclick="showcreditsModal()"></input>
-                </div>
-            </div> 
-          </div>          
+            <div class="dropdown" onclick="showDropdown()">
+              <button style="background-color: transparent;font-size: 48px;color: #ffffff;border: transparent;position: fixed;margin-left: 50%;">&#x22EE</button>
+              <div id="dropdownContent" class="dropdown-content">
+                <input style="top: 5%; font-size: 18px; width: 170px; height: 60px; position: fixed;text-align: left;" type="button" value="❔วิธีเล่น" onclick="showhowtoplayModal()">
+                <input style="top: 10.5%; font-size: 18px; width: 170px; height: 60px; position: fixed;text-align: left;" type="button" value="💡 คำใบ้" onclick="showhintModal()">
+                <input style="top: 16%; font-size: 18px; width: 170px; height: 60px; position: fixed;text-align: left;" type="button" value="🏳️ ยอมแพ้" onclick="giveUp()">
+                <input style="top: 21.5%; font-size: 18px; width: 170px; height: 60px; position: fixed;text-align: left;" type="button" value="📜 ผู้จัดทำ" onclick="showcreditsModal()">
+              </div>
+            </div>
+          </div>            
         <div style="width: 10%;" id="options" class="options">
         </div>
         <h1>เกมเดาคำศัพท์</h1>
-        <label>เกมที่: <strong>#0</strong></p>
+        <label>เกมที่: <strong>#1</strong></p>
         <div id="stopwatch"></div>
         <p id="guesses">จำนวนคำ: <strong>0</strong></p>
         <form>
-            <input style="width: 86%;" type="text" id="guess" placeholder="type a word">
+            <input style="width: 67.5%;" type="text" id="guess" placeholder="type a word">
             <input style ="height: auto;" type="button" id="submitButton" value="Check" onclick="checkGuess()">
             <input style ="height: auto; display: none;" type="button" id="resultButton" value="View Result" onclick="showModal()">
         </form>
@@ -144,6 +144,16 @@
     function hideModal() {
         var modal = document.getElementById("myModal");
         modal.style.display = "none";
+        }
+    function showDropdown() {
+        var dropdownContent = document.getElementById("dropdownContent");
+        if (dropdownContent.style.display == "block") {
+            dropdownContent.style.display = "none";
+        } else {
+            dropdownContent.style.display = "block";
+            dropdownContent.style.right = "33.5%";
+            dropdownContent.style.top = "0";
+        }
         }
     function giveUp() {
             if (confirm("คุณแน่ใจหรือไม่ ที่จะยอมแพ้?")) {

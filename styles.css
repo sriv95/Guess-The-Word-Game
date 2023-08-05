@@ -13,6 +13,7 @@ body {
 div {
     font-family: 'Kodchasan', sans-serif;
     margin: auto;
+    position: relative;
     }
 h1 {
     text-align: center;
@@ -109,9 +110,4 @@ input:hover {
 .dropdown-content {
     display: none;
     position: fixed;
-    }
-.dropdown:hover .dropdown-content {
-    display: block;
-    right: 33.5%;
-    top: 0;
     }
