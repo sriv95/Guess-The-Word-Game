@@ -51,7 +51,12 @@
     <audio id="hintsound">
         <source src="assets/hintsound.wav" type="audio/wav">
     </audio>
-    
+    <audio id="hintsound">
+        <source src="assets/hintsound.wav" type="audio/wav">
+    </audio>
+    <audio id="destroymodalsound">
+        <source src="assets/destroymodal.mp3" type="audio/mpeg">
+    </audio>
 </body>
 <script>
     //start
@@ -114,7 +119,12 @@
     var modal = document.getElementById("modal");
     var modalinput = document.getElementById("modalinput");
     var modalp = document.getElementById("modalp");
-    function destroyModal() { modal.style.opacity = 0 }
+    function destroyModal() { modal.style.opacity = 0 
+        var destroymodalsound = document.getElementById("destroymodalsound");
+        if (!ismutesfx) {
+            destroymodalsound.play();
+        }
+    }
     function howtoplayModal() { modal.style.opacity = 1;
         modalinput.value = "❔วิธีเล่น";
         modalinput.style.fontSize = "xx-large";
