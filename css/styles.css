@@ -157,3 +157,12 @@ th {
 table tr td {
     background-color: #3e3f46;
 }
+::-webkit-scrollbar {
+background-color: transparent;
+width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #3e3f46;
+    border-radius: 100px;
+}
