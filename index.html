@@ -57,6 +57,12 @@
     <audio id="destroymodalsound">
         <source src="assets/destroymodal.mp3" type="audio/mpeg">
     </audio>
+    <audio id="checksound">
+        <source src="assets/checksound.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="nextgamesound">
+        <source src="assets/nextgamesound.mp3" type="audio/mpeg">
+    </audio>
 </body>
 <script>
     //start
@@ -119,11 +125,14 @@
     var modal = document.getElementById("modal");
     var modalinput = document.getElementById("modalinput");
     var modalp = document.getElementById("modalp");
-    function destroyModal() { modal.style.opacity = 0 
+    function destroyModal() {
         var destroymodalsound = document.getElementById("destroymodalsound");
         if (!ismutesfx) {
-            destroymodalsound.play();
+            if (modal.style.opacity == 1){
+                destroymodalsound.play();
+            }
         }
+        modal.style.opacity = 0 
     }
     function howtoplayModal() { modal.style.opacity = 1;
         modalinput.value = "❔วิธีเล่น";
@@ -153,9 +162,9 @@
       }
     })
     .catch((error) => {
+    gameend=0
       document.getElementById("nextgamebutton").style.opacity = 0;
       document.getElementById("nextgamebutton").style.setProperty('--i', -2);
-      gameend = 0
       console.error("Error next game not found:", error);
     });
         }
@@ -186,13 +195,6 @@
     //hint
     var hintCooldown = false;
     var guessedHints = [];
-
-    function playHintSound() {
-        if (!ismutesfx) {
-            const hintsound = document.getElementById("hintsound");
-            hintsound.play();
-        }
-    }
 
     function gethint() {
         if (hintCooldown) {
@@ -229,7 +231,9 @@
                     var hintWord = lines[hintToGuess - 1].trim();
                     document.getElementById("textbox_guess").value = hintWord;
                     checkGuess();
-                    playHintSound();
+                    if (!ismutesfx) {
+            document.getElementById("hintsound").play();
+        }
                 }
             })
             .catch((error) => {
@@ -243,6 +247,17 @@
 
     //check Guess
     function checkGuess() {
+        //animate
+        const checkButton = document.getElementById("checkbutton");
+  const textBox = document.getElementById("textbox_guess_li");
+  checkButton.style.animation = "moveCheckButton 0.25s";
+  textBox.style.animation = "shakeTextBox 0.5s";
+  setTimeout(() => {
+    checkButton.style.animation = "";
+    textBox.style.animation = "";
+  }, 500);
+
+
         if (gameend == 0) {
         var varguess = document.getElementById("textbox_guess");
         var vartext = varguess.value.trim().toLowerCase();
@@ -308,6 +323,11 @@
                     rows[maxIndex].innerHTML = tempRow;
                 }
             }
+            if (!ismutesfx) {
+            if (!ismutesfx) {
+            document.getElementById("checksound").play();
+        }
+        }
             });
         document.getElementById("textbox_guess").value = ''
         }
@@ -341,6 +361,9 @@ function nextgame() {
       });
   }}
   function loadNewGame() {
+    if (!ismutesfx) {
+            document.getElementById("nextgamesound").play();
+        }
     guessCount = 0;
     gameend = 0;
     guessedHints = [];

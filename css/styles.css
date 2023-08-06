@@ -31,7 +31,7 @@ ul li:not(.textbox):hover {
 }
 
 ul li.textbox:hover input {
-    color: aliceblue; /* Set the desired color on hover */
+    color: aliceblue;
 }
 
 ul li::before {
