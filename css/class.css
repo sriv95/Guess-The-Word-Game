@@ -1,6 +1,6 @@
 .options {
     margin-left: 1500px;
-    margin-top: 100px;
+    margin-top: 50px;
 }
 .title {
     margin-left: 600px;
@@ -29,10 +29,9 @@
     margin-left: 500px;
     margin-top: -50px;
     opacity: 0;
-    z-index: -1;
 }
 .modal {
-    margin-top: -600px;
+    margin-top: -750px;
     margin-left: -150px;
     height: 300px;
     width: 300px;
@@ -48,4 +47,10 @@ p {
     color: aliceblue;
     text-align: center;
     transform: 0.5s;
+}
+.nextgamebutton {
+    width: 300px;
+    margin-left: 900px;
+    margin-top: -60px;
+    opacity: 0;
 }
