@@ -10,7 +10,6 @@ body {
     display: flex;
     justify-content: center;
     background-color: #000000;
-    overflow-x: hidden;
 }
 ul {
     position: relative;
@@ -160,6 +159,7 @@ table tr td {
 ::-webkit-scrollbar {
 background-color: transparent;
 width: 10px;
+height: 10px;
 }
 ::-webkit-scrollbar-thumb {
     background-color: #3e3f46;
