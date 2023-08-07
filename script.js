@@ -230,16 +230,16 @@
             const lines = data.split("\n");
             const totalLines = lines.length;
             const secretWordIndex = lines.findIndex((line) => line.trim() === vartext);
-            var similarity = 0.0
+            var similarity = 0.00
             if (secretWordIndex !== -1) {
-                similarity = ((totalLines - secretWordIndex) / 10).toFixed(1);
+                similarity = ((totalLines - secretWordIndex) / (totalLines/100)).toFixed(2);
             }
                 var row = table.insertRow(1);
                 var cell1 = row.insertCell(0);
                 var cell2 = row.insertCell(1);
                 if (similarity < 50) {
                     cell1.className = "lcoral";
-                } else if (similarity >= 50 && similarity < 75) {
+                } else if (similarity >= 50 && similarity < 90) {
                     cell1.className = "lsalmon";
                 } else {
                     cell1.className = "lgreen";
