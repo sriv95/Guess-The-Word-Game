@@ -234,6 +234,21 @@
             if (secretWordIndex !== -1) {
                 similarity = ((totalLines - secretWordIndex) / (totalLines/100)).toFixed(2);
             }
+
+            var searchButton = document.createElement("button");
+            searchButton.className = "search-button";
+            var searchIcon = document.createElement("img");
+            searchIcon.src = "assets/searchimg.png";
+            searchIcon.className = "search-icon";
+            searchButton.appendChild(searchIcon);
+
+            var translateButton = document.createElement("button");
+            translateButton.className = "translate-button";
+            var translateIcon = document.createElement("img");
+            translateIcon.src = "assets/translateimg.png";
+            translateIcon.className = "translate-icon";
+            translateButton.appendChild(translateIcon);
+
                 var row = table.insertRow(1);
                 var cell1 = row.insertCell(0);
                 var cell2 = row.insertCell(1);
@@ -246,6 +261,8 @@
                 }  
                 cell1.innerHTML = ""+ vartext +"";
                 cell2.innerHTML = ""+ similarity +"%";
+                cell1.appendChild(searchButton);
+                cell1.appendChild(translateButton);
                 var rows = table.rows;
             var numRows = rows.length;
             for (var i = 2; i < numRows; i++) {
@@ -338,11 +355,22 @@
     const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(word)}`;
     window.open(searchUrl, "_blank");
     }
+
+    //tr translate
+    function openGoogleTranslate(word) {
+        const translateUrl = `https://translate.google.com/?sl=en&tl=th&text=${encodeURIComponent(word)}`;
+        window.open(translateUrl, "_blank");
+      }
+
     const table = document.getElementById("wordguessedlist");
     table.addEventListener("click", function (event) {
     const target = event.target;
-    if (target.tagName === "TD") {
-      const word = target.textContent.trim();
-      openGoogleSearch(word);
+    if (target.tagName === "IMG") {
+      const word = target.parentElement.parentElement.textContent.trim();
+      if (target.className==="search-icon") {
+        openGoogleSearch(word);
+      } else if (target.className==="translate-icon") {
+        openGoogleTranslate(word);
+      }
     }
     });

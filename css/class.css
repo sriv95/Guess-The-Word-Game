@@ -63,3 +63,13 @@ p {
 .lgreen {
     color: lightgreen;
     }
+.search-button,.translate-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+    }
+.search-icon,.translate-icon {
+    width: 20px;
+    height: 20px;
+  }
