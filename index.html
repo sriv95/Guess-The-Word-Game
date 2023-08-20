@@ -10,41 +10,47 @@
     <link rel="stylesheet" type="text/css" href="css/class.css" />
 </head>
 <body>
-    <div>
-        <ul>
-            <li class="title"><input type="button" value="เกมเดาคำศัพท์" style="font-size: xx-large;font-weight: bolder;"></input></li>
-            <li class="info" style="--i:3;"><input id="info_gameid" type="button" value="เกมที่: #1" style="font-size: x-large;font-weight: bold;"></input></li>
-            <li class="info" style="--i:2;"><input id="info_stopwatch" type="button" value="เวลาที่ใช้: 0:00" style="font-size: x-large;font-weight: bold;"></input></li>
-            <li class="info" style="--i:1;"><input id="info_guessescount" type="button" value="จำนวนคำที่ใช้: 0" style="font-size: x-large;font-weight: bold;"></input></li>
-            <li class="info" style="--i:0;"><input id="info_hintcount" type="button" value="จำนวนคำใบ้ที่ใช้: 0" style="font-size: x-large;font-weight: bold;"></input></li>
-            <li class="textbox" id="textbox_guess_li"><input id="textbox_guess" type="text" oninput="validateAlphabetInput(event)" placeholder="พิมพ์คำลงในช่องนี้" style="font-size: x-large;font-weight: bold;"></input></li>
-            <li class="checkbutton" id="checkbutton"><input id="checkbutton_input" type="button" value="Check" onclick="checkGuess()" style="font-size: x-large;font-weight: bold;"></input></li>
-            <li class="viewresultbutton" id="viewresultbutton" style="--i:-1;"><input type="button" value="View Result" onclick="endModal()" style="font-size: x-large;font-weight: bold;"></input></li>
-            <li class="nextgamebutton" id="nextgamebutton" style="--i:-2;"><input type="button" value="Next Game" onclick="nextgame()" style="font-size: x-large;font-weight: bold;"></input></li>
-        </ul>
-        <ul class="options">
-            <li style="--i:4;"><input type="button" id="howtoplay_btn" value="วิธีเล่น" onclick="howtoplayModal()"><i></i><span>❔</span></li>
-            <li style="--i:3;"><input type="button" id="gethint_btn" value="คำใบ้" onclick="gethint()"><i></i><span>💡</span></li>
-            <li style="--i:2;"><input type="button" id="giveup_btn" value="ยอมแพ้" onclick="giveup()"><i></i><span>🏳️</span></li>
-            <li style="--i:1;"><input type="button" id="credits_btn" value="ผู้จัดทำ" onclick="creditsModal()"><i></i><span>📜</span></li>
-            <li style="--i:0;"><input type="button" id="mutesfxbutton" value="ปิดเสียง" onclick="mutesfx()"><i></i><span id="mutesfxspan">🔇</span></li>
-            <li style="--i:-1;"><input type="button" id="mutebgmbtn" value="ปิดเพลง" onclick="mutebgm()"><i></i><span>🎵</span></li>
-            <li style="--i:-2;"><input type="button" id="changelangbtn" value="Language" onclick="changelang()"><i></i><span>🌎</span></li>
-            <li class="modal" id="modal" onclick="destroyModal()">
-                <input id="modalinput" type="button" value="modal" style="font-size: xx-large;" onclick="destroyModal()">
-                <p id="modalp" style="padding: 10%;margin-top: -125px;font-size: small;">Hello World</p>
-                </input>
-                <i></i>
-                <span></span>
-            </li>            
-        </ul>
-        <table id="wordguessedlist">
-            <tr>
-                <th style="width: 75%;" id="tabletitle1">คำที่เดาไปแล้ว</th>
-                <th id="tabletitle2">ความถูกต้อง (%)</th>
-            </tr>
-        </table>
-    </div>
+    <body>
+        <div class="container">
+            <div id="main-game">
+                <div>
+                    <ul>
+                        <li class="title"><input type="button" value="เกมเดาคำศัพท์" style="font-size: xx-large;font-weight: bolder;"></input></li>
+                        <li class="info" style="--i:3;"><input id="info_gameid" type="button" value="เกมที่: #1" style="font-size: x-large;font-weight: bold;"></input></li>
+                        <li class="info" style="--i:2;"><input id="info_stopwatch" type="button" value="เวลาที่ใช้: 0:00" style="font-size: x-large;font-weight: bold;"></input></li>
+                        <li class="info" style="--i:1;"><input id="info_guessescount" type="button" value="จำนวนคำที่ใช้: 0" style="font-size: x-large;font-weight: bold;"></input></li>
+                        <li class="info" style="--i:0;"><input id="info_hintcount" type="button" value="จำนวนคำใบ้ที่ใช้: 0" style="font-size: x-large;font-weight: bold;"></input></li>
+                        <li class="textbox" id="textbox_guess_li"><input id="textbox_guess" type="text" oninput="validateAlphabetInput(event)" placeholder="พิมพ์คำลงในช่องนี้" style="font-size: x-large;font-weight: bold;"></input></li>
+                        <li class="checkbutton" id="checkbutton"><input id="checkbutton_input" type="button" value="Check" onclick="checkGuess()" style="font-size: x-large;font-weight: bold;"></input></li>
+                        <li class="viewresultbutton" id="viewresultbutton" style="--i:-1;"><input type="button" value="View Result" onclick="endModal()" style="font-size: x-large;font-weight: bold;"></input></li>
+                        <li class="nextgamebutton" id="nextgamebutton" style="--i:-2;"><input type="button" value="Next Game" onclick="nextgame()" style="font-size: x-large;font-weight: bold;"></input></li>
+                    </ul>
+                    <ul class="options">
+                        <li style="--i:4;"><input type="button" id="howtoplay_btn" value="วิธีเล่น" onclick="howtoplayModal()"><i></i><span>❔</span></li>
+                        <li style="--i:3;"><input type="button" id="gethint_btn" value="คำใบ้" onclick="gethint()"><i></i><span>💡</span></li>
+                        <li style="--i:2;"><input type="button" id="giveup_btn" value="ยอมแพ้" onclick="giveup()"><i></i><span>🏳️</span></li>
+                        <li style="--i:1;"><input type="button" id="credits_btn" value="ผู้จัดทำ" onclick="creditsModal()"><i></i><span>📜</span></li>
+                        <li style="--i:0;"><input type="button" id="mutesfxbutton" value="ปิดเสียง" onclick="mutesfx()"><i></i><span id="mutesfxspan">🔇</span></li>
+                        <li style="--i:-1;"><input type="button" id="mutebgmbtn" value="ปิดเพลง" onclick="mutebgm()"><i></i><span>🎵</span></li>
+                        <li style="--i:-2;"><input type="button" id="changelangbtn" value="Language" onclick="changelang()"><i></i><span>🌎</span></li>
+                        <li class="modal" id="modal" onclick="destroyModal()">
+                            <input id="modalinput" type="button" value="modal" style="font-size: xx-large;" onclick="destroyModal()">
+                            <p id="modalp" style="padding: 10%;margin-top: -125px;font-size: small;">Hello World</p>
+                            </input>
+                            <i></i>
+                            <span></span>
+                        </li>            
+                    </ul>
+                    <table id="wordguessedlist">
+                        <tr>
+                            <th style="width: 75%;" id="tabletitle1">คำที่เดาไปแล้ว</th>
+                            <th id="tabletitle2">ความถูกต้อง (%)</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <canvas id="stars"></canvas>
+        </div>
     <audio id="hitsound">
         <source src="assets/hitsound.mp3" type="audio/mpeg">
     </audio>
@@ -71,4 +77,5 @@
     </audio>
     <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
     <script src="script.js"></script>
+    <script src="emoji.js"></script>
 </body>
