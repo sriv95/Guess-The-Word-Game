@@ -287,9 +287,9 @@
             gameend = 1;
             endModal();
             jsConfetti.addConfetti();
-            jsConfetti.addConfetti({emojis: ['🌈', '💥', '✨', '🌸','🦄'],});
+            jsConfetti.addConfetti({emojis: ['🌈', '💥', '✨', '🌸','🦄','🎉','🎁','👑','💎','☀️','⭐','🌟','❤️','💖'],});
              if (!ismutesfx) {
-                document.getElementById("congratsound").volume=0.5;
+                document.getElementById("congratsound").volume=0.25;
                 document.getElementById("congratsound").play();
             }
             modalinput.value = "🎉Congratulations!🎉";
