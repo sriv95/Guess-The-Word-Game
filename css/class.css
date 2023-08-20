@@ -102,3 +102,6 @@ p {
 #main-game table {
     position: absolute;
 }
+.slide-in {
+    animation: slideIn 0.5s ease forwards;
+  }

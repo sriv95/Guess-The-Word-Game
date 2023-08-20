@@ -321,8 +321,8 @@
             translateIcon.src = "assets/translateimg.png";
             translateIcon.className = "translate-icon";
             translateButton.appendChild(translateIcon);
-
                 var row = table.insertRow(1);
+                row.classList.add('slide-in');
                 var cell1 = row.insertCell(0);
                 var cell2 = row.insertCell(1);
                 if (similarity < 50) {
@@ -332,7 +332,7 @@
                 } else {
                     cell1.className = "lgreen";
                 }  
-                cell1.innerHTML = `${vartext} ${getEmojiForWord(vartext)}`;
+                cell1.innerHTML = `${vartext}`;
                 cell2.innerHTML = ""+ similarity +"%";
                 cell1.appendChild(searchButton);
                 cell1.appendChild(translateButton);
@@ -482,9 +482,6 @@
     setupStars();
     updateStars();
     
-    slider.oninput = function () {
-        params.speed = this.value;
-    };
     
     // update stars on resize to keep the thing centered
     window.onresize = function () {
