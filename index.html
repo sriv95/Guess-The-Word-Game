@@ -23,16 +23,16 @@
             <li class="nextgamebutton" id="nextgamebutton" style="--i:-2;"><input type="button" value="Next Game" onclick="nextgame()" style="font-size: x-large;font-weight: bold;"></input></li>
         </ul>
         <ul class="options">
-            <li style="--i:4;"><input type="button" value="วิธีเล่น" onclick="howtoplayModal()"></input><i></i><span>❔</span></li>
-            <li style="--i:3;"><input type="button" value="คำใบ้" onclick="gethint()"></input><i></i><span>💡</span></li>
-            <li style="--i:2;"><input type="button" value="ยอมแพ้" onclick="giveup()"></input><i></i><span>🏳️</span></li>
-            <li style="--i:1;"><input type="button" value="ผู้จัดทำ" onclick="creditsModal()"></input><i></i><span>📜</span></li>
-            <li style="--i:0;"><input type="button" value="ปิดเสียง" id="mutesfxbutton" onclick="mutesfx()"></input><i></i><span id="mutesfxspan">🔇</span></li>
-            <li style="--i:-1;"><input type="button" value="ปิดเพลง" onclick="mutebgm()"></input><i></i><span>🎵</span></li>
-            <li style="--i:-2;"><input type="button" value="Language" onclick="changelang()"></input><i></i><span>🌎</span></li>
+            <li style="--i:4;"><input type="button" id="howtoplay_btn" value="วิธีเล่น" onclick="howtoplayModal()"><i></i><span>❔</span></li>
+            <li style="--i:3;"><input type="button" id="gethint_btn" value="คำใบ้" onclick="gethint()"><i></i><span>💡</span></li>
+            <li style="--i:2;"><input type="button" id="giveup_btn" value="ยอมแพ้" onclick="giveup()"><i></i><span>🏳️</span></li>
+            <li style="--i:1;"><input type="button" id="credits_btn" value="ผู้จัดทำ" onclick="creditsModal()"><i></i><span>📜</span></li>
+            <li style="--i:0;"><input type="button" id="mutesfxbutton" value="ปิดเสียง" onclick="mutesfx()"><i></i><span id="mutesfxspan">🔇</span></li>
+            <li style="--i:-1;"><input type="button" id="mutebgmbtn" value="ปิดเพลง" onclick="mutebgm()"><i></i><span>🎵</span></li>
+            <li style="--i:-2;"><input type="button" id="changelangbtn" value="Language" onclick="changelang()"><i></i><span>🌎</span></li>
             <li class="modal" id="modal" onclick="destroyModal()">
                 <input id="modalinput" type="button" value="modal" style="font-size: xx-large;" onclick="destroyModal()">
-                <p id="modalp" style="padding: 10%;margin-top: -125px;">Hello World</p>
+                <p id="modalp" style="padding: 10%;margin-top: -125px;font-size: small;">Hello World</p>
                 </input>
                 <i></i>
                 <span></span>
@@ -40,8 +40,8 @@
         </ul>
         <table id="wordguessedlist">
             <tr>
-                <th style="width: 75%;">Guessed Word (คำที่เดาไปแล้ว)</th>
-                <th>ความถูกต้อง (%)</th>
+                <th style="width: 75%;" id="tabletitle1">คำที่เดาไปแล้ว</th>
+                <th id="tabletitle2">ความถูกต้อง (%)</th>
             </tr>
         </table>
     </div>
@@ -65,6 +65,9 @@
     </audio>
     <audio id="congratsound">
         <source src="assets/Glitchpop_Kill_5.mp3.mpeg" type="audio/mpeg">
+    </audio>
+    <audio id="clicksound">
+        <source src="assets/clicksound.mp3" type="audio/mpeg">
     </audio>
     <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
     <script src="script.js"></script>

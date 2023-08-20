@@ -1,7 +1,13 @@
     //start
     var secretWord = "banana";
     var gameid = "001";
-    document.getElementById("info_gameid").value = "เกมที่: #" + gameid;
+    var lang = "th"
+    if (lang === "th") {
+        document.getElementById("info_gameid").value = "เกมที่: #" + gameid;
+    }
+    else if (lang === "en") {
+        document.getElementById("info_gameid").value = "Game: #" + gameid;
+    }
     function readSecretWordFromFile() {
         fetch("Games/" + gameid + ".txt")
             .then((response) => response.text())
@@ -54,7 +60,12 @@
     const minutes = Math.floor(elapsedTime / 60000);
     const seconds = Math.floor((elapsedTime % 60000) / 1000);
     const stopwatchDisplay = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-    document.getElementById('info_stopwatch').value = "เวลาที่ใช้: " +stopwatchDisplay+ "";
+    if (lang === "th") {
+        document.getElementById('info_stopwatch').value = "เวลาที่ใช้: " +stopwatchDisplay+ "";
+    }
+    else if (lang === "en") {
+        document.getElementById('info_stopwatch').value = "Elapsed: " +stopwatchDisplay+ "";
+    }
     }, 1000);
     
     //modal
@@ -73,12 +84,59 @@
     function howtoplayModal() { modal.style.opacity = 1;
         modalinput.value = "❔วิธีเล่น";
         modalinput.style.fontSize = "xx-large";
-        modalp.innerHTML = "พิมพ์คำศัพท์ลงในช่องเดาคำศัพท์ไปเรื่อยๆจนกว่าจะถูก<br></br>โดยที่คะแนนจะเรียงตามความใกล้เคียง";
+        if (lang === "th") {
+            modalp.innerHTML = "พิมพ์คำศัพท์ลงในช่องเดาคำศัพท์ไปเรื่อยๆจนกว่าจะถูก<br></br>โดยที่คะแนนจะเรียงตามความใกล้เคียง";
+        }
+        else if (lang === "en") {
+            modalp.innerHTML = "Keep typing the word in the word guess box until it is correct.<br></br>Where the similarity (%) are sorted by proximity";
+        }
+        if (!ismutesfx) {
+            document.getElementById("clicksound").play();
+        }
     }
     function creditsModal() { modal.style.opacity = 1;
         modalinput.style.fontSize = "xx-large";
         modalinput.value = "📜 ผู้จัดทำ";
-        modalp.innerHTML = "นาย ชินภัทร เมืองใจ เลขที่ 27 ม.6/13<br></br>นาย ณัฐภัทร วรรณภิละ เลขที่ 31 ม.6/13<br></br>นาย ทินภัทร ศรีวิชัย เลขที่ 36 ม.6/13";
+        modalp.innerHTML = "นาย ชินภัทร เมืองใจ<br></br>เลขที่ 27 ม.6/13<br></br>นาย ณัฐภัทร วรรณภิละ<br></br>เลขที่ 31 ม.6/13<br></br>นาย ทินภัทร ศรีวิชัย<br></br>เลขที่ 36 ม.6/13";
+        if (!ismutesfx) {
+            document.getElementById("clicksound").play();
+        }
+    }
+    function changelang() {
+        if (lang === "th") {
+            lang = "en"
+            document.getElementById("info_gameid").value = "Game: #" + gameid;
+            document.getElementById("info_stopwatch").value = "Elapsed: X:XX";
+            document.getElementById("info_hintcount").value = "Hints: " + guessedHints.length;
+            document.getElementById("info_guessescount").value = "Guesses: " + guessCount;
+            document.getElementById("textbox_guess").placeholder = "type a word";
+            document.getElementById("tabletitle1").innerHTML = "Guessed Word";
+            document.getElementById("tabletitle2").innerHTML = "Similarity (%)";
+            document.getElementById("howtoplay_btn").value = "HowToPlay"
+            document.getElementById("gethint_btn").value = "Hint";
+            document.getElementById("giveup_btn").value = "Give Up";
+            document.getElementById("credits_btn").value = "Credits";
+            document.getElementById("mutesfxbutton").value = "Mute SFX";
+            document.getElementById("mutebgmbtn").value = "Mute BGM";
+            document.getElementById("changelangbtn").value = "ภาษาไทย";
+        }
+        else if (lang === "en") {
+            lang = "th"
+            document.getElementById("info_gameid").value = "เกมที่: #" + gameid;
+            document.getElementById("info_stopwatch").value = "เวลาที่ใช้: X:XX";
+            document.getElementById("info_hintcount").value = "จำนวนคำใบ้ที่ใช้: " + guessedHints.length;
+            document.getElementById("info_guessescount").value = "จำนวนคำที่ใช้: " + guessCount;
+            document.getElementById("textbox_guess").placeholder = "พิมพ์คำลงในช่องนี้";
+            document.getElementById("tabletitle1").innerHTML = "คำที่เดาไปแล้ว";
+            document.getElementById("tabletitle2").innerHTML = "ความถูกต้อง (%)";
+            document.getElementById("howtoplay_btn").value = "วิธีเล่น";
+            document.getElementById("gethint_btn").value = "คำใบ้";
+            document.getElementById("giveup_btn").value = "ยอมแพ้";
+            document.getElementById("credits_btn").value = "ผู้จัดทำ";
+            document.getElementById("mutesfxbutton").value = "ปิดเสียง";
+            document.getElementById("mutebgmbtn").value = "ปิดเพลง";
+            document.getElementById("changelangbtn").value = "Language";
+        }
     }
     //view result
     function endModal() { modal.style.opacity = 1;
@@ -109,6 +167,9 @@
     
     //giveup
     function giveup() { 
+        if (!ismutesfx) {
+            document.getElementById("clicksound").play();
+        }
         if (confirm("คุณแน่ใจหรือไม่ ที่จะยอมแพ้?")) {
             modal.style.opacity = 1;
             gameend = -1;
@@ -158,7 +219,13 @@
         var hintToGuess = hintsToGuess[randomIndex];
         guessedHints.push(hintToGuess);
         var hintsCount = document.getElementById("info_hintcount");
-        hintsCount.value = "จำนวนคำใบ้ที่ใช้: " + guessedHints.length;
+        if (lang === "th") {
+            hintsCount.value = "จำนวนคำใบ้ที่ใช้: " + guessedHints.length;
+        }
+        else if (lang === "en") {
+            hintsCount.value = "Hints: " + guessedHints.length;
+        }
+        
         fetch("Games/" + gameid + ".txt")
             .then((response) => response.text())
             .then((data) => {
@@ -209,7 +276,13 @@
         }
         guessCount++;
         var guesses = document.getElementById("info_guessescount");
-        guesses.value = "จำนวนคำที่ใช้: " + guessCount;
+        if (lang === "th") {
+            guesses.value = "จำนวนคำที่ใช้: " + guessCount;
+        }
+        else if (lang === "en") {
+            guesses.value = "Guesses: " + guessCount;
+        }
+        
         if (vartext === secretWord.toLowerCase()) {
             gameend = 1;
             endModal();
@@ -303,7 +376,12 @@
     if (gameend != 0) {
     var nextGameId = (parseInt(gameid) + 1).toString().padStart(3, "0");
     gameid = nextGameId;
-    document.getElementById("info_gameid").value = "เกมที่: #" + gameid;
+    if (lang === "th") {
+        document.getElementById("info_gameid").value = "เกมที่: #" + gameid;
+    }
+    else if (lang === "en") {
+        document.getElementById("info_gameid").value = "Game: #" + gameid;
+    }
     fetch("Games/" + gameid + ".txt")
       .then((response) => response.text())
       .then((data) => {
@@ -324,9 +402,24 @@
     guessCount = 0;
     gameend = 0;
     guessedHints = [];
-    document.getElementById("info_stopwatch").value = "เวลาที่ใช้: 0:00";
-    document.getElementById("info_guessescount").value = "จำนวนคำที่ใช้: 0";
-    document.getElementById("info_hintcount").value = "จำนวนคำใบ้ที่ใช้: 0";
+    if (lang === "th") {
+        document.getElementById("info_stopwatch").value = "เวลาที่ใช้: 0:00";
+    }
+    else if (lang === "en") {
+        document.getElementById("info_stopwatch").value = "Elapsed: 0:00";
+    }
+    if (lang === "th") {
+        document.getElementById("info_guessescount").value = "จำนวนคำที่ใช้: 0";
+    }
+    else if (lang === "en") {
+        document.getElementById("info_guessescount").value = "Guesses: 0";
+    }
+    if (lang === "th") {
+        document.getElementById("info_hintcount").value = "จำนวนคำใบ้ที่ใช้: 0";
+    }
+    else if (lang === "en") {
+        document.getElementById("info_hintcount").value = "Hints: 0";
+    }
     document.getElementById("textbox_guess").value = "";
     var table = document.getElementById("wordguessedlist");
     while (table.rows.length > 1) {
@@ -346,7 +439,12 @@
     const minutes = Math.floor(elapsedTime / 60000);
     const seconds = Math.floor((elapsedTime % 60000) / 1000);
     const stopwatchDisplay = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-    document.getElementById('info_stopwatch').value = "เวลาที่ใช้: " + stopwatchDisplay + "";
+    if (lang === "th") {
+        document.getElementById('info_stopwatch').value = "เวลาที่ใช้: " +stopwatchDisplay+ "";
+    }
+    else if (lang === "en") {
+        document.getElementById('info_stopwatch').value = "Elapsed: " +stopwatchDisplay+ "";
+    }
     }, 1000);
     }
     
